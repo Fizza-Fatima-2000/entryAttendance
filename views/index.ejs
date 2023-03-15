@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reception Attendance</title>
+  </head>
+  <body>
+    <div style="text-align: center;" class="foradd">
+    <h1> Entry Form</h1>
+    <form id="entry-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" required>
+      <br>
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required>
+      <br>
+      <label for="purpose">Purpose:</label>
+      <input type="text" id="purpose" name="purpose" required>
+      <br>
+      <label for="person-to-meet">Person to Meet:</label>
+      <input type="text" id="person-to-meet" name="person-to-meet" required>
+      <br>
+      <input type="submit" id="forsubmit" value="Submit">
+    </form>
+  </div>
+
+  <a href="http://localhost:3030/home/attendace" class="nav-link active"> get table
+  </a>
+<div>
+  
+</div>
+    <script src="index.js"></script>
+  </body>
+  <script>
+
+
+let button = document.getElementById("forsubmit");
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Pressed");
+    alert("confirm");
+
+
+
+    var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  name: document.querySelector('#name').value,
+  phonenumber: document.querySelector('#phone').value,
+  Date: document.querySelector('#date').value,
+  Purpose: document.querySelector('#purpose').value,
+  PersontoMeet: document.querySelector('#person-to-meet').value,
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:3030/add/attendace", requestOptions)
+  .then(response => response.text())
+  .then(result =>{ console.log(result)
+  
+  
+  })
+  .catch(error => console.log('error', error));
+
+})
+    </script>
+
+
+</html>

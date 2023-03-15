@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Person Table</title>
+</head>
+
+<body>
+	<h1>Person Table</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Phone Number</th>
+				<th>Purpose</th>
+				<th>PersontoMeet</th>
+			</tr>
+		</thead>
+		<tbody>
+			<thead id="list"></thead>
+		</tbody>
+	</table>
+</body>
+
+<script>
+
+	var requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	};
+
+	fetch("http://localhost:3030/get/attendace", requestOptions)
+		.then(response => response.text())
+		.then(result => {
+			const fordata = JSON.parse(result);
+			console.log(fordata)
+			
+			let list = "<thead>";
+			fordata.forEach((element) => {
+				console.log(element.phonenumber)
+				list += `
+            <tr>
+              <td>${element.name}</td>
+              <td>${element.phonenumber}</td>
+              <td>${element.Date}</td>
+              <td>${element.Purpose}</td>
+              <td>${element.PersontoMeet}</td>
+            </tr>
+          `;
+			});
+			list += "</thead>";
+			document.getElementById("list").innerHTML = list;
+		})
+		.catch (error => console.log('error', error));
+
+</script>
+
+</html>
